@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class TeaTableViewController: UITableViewController {
     
@@ -19,8 +20,14 @@ class TeaTableViewController: UITableViewController {
         // use edit button
         navigationItem.leftBarButtonItem = editButtonItem
         
-        // load sample tea data
-        loadSampleTeas()
+        // load saved teas
+        if let savedTeas = loadTeas(){
+            teas += savedTeas
+        }
+        // else load sample tea data
+        else{
+            loadSampleTeas()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,6 +76,7 @@ class TeaTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             teas.remove(at: indexPath.row)
+            saveTeas()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -121,6 +129,9 @@ class TeaTableViewController: UITableViewController {
                 teas.append(tea)
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
+            
+            // save the teas in list
+            saveTeas()
         }
     }
     
@@ -133,6 +144,20 @@ class TeaTableViewController: UITableViewController {
         guard let tea3 = Tea(name: "White Tea", brewtime: 150) else{fatalError("Unable to instantiate tea 3")}
         
         teas += [tea1, tea2, tea3]
+    }
+    
+    private func saveTeas(){
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(teas, toFile: Tea.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Teas successfully saved", log: OSLog.default, type: .debug)
+        }
+        else{
+            os_log("Failed to save", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadTeas() -> [Tea]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Tea.ArchiveURL.path) as? [Tea]
     }
 
 }
