@@ -16,13 +16,11 @@ class TeaTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // use edit button
+        navigationItem.leftBarButtonItem = editButtonItem
+        
+        // load sample tea data
         loadSampleTeas()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,17 +63,18 @@ class TeaTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            teas.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
@@ -110,10 +109,18 @@ class TeaTableViewController: UITableViewController {
     // MARK: Actions
     @IBAction func unwindToTeaList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? EditTeaViewController, let tea = sourceViewController.tea{
-            // add new tea
-            let newIndexPath = IndexPath(row: teas.count, section: 0)
-            teas.append(tea)
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+            if let selectedIndexPath = tableView.indexPathForSelectedRow{
+                // update existing tea
+                teas[selectedIndexPath.row] = tea
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            }
+            else{
+                // add new tea
+                let newIndexPath = IndexPath(row: teas.count, section: 0)
+                teas.append(tea)
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
         }
     }
     
