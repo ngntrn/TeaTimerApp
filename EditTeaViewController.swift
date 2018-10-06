@@ -16,7 +16,10 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var brewTimeField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-
+    
+    @IBOutlet weak var timePicker: UIPickerView! = UIPickerView()
+    
+    
     // MARK: Actions
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -26,14 +29,14 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     var tea: Tea?
     
-    var valueToPass: String!
+    var toPass: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
-        nameTextField.text = valueToPass
-        //nameTextField.delegate = self
+        nameTextField.text = toPass
+        nameTextField.delegate = self
         
         
         // enable save button only if text field has input

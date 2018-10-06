@@ -13,9 +13,12 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
     @IBOutlet weak var teaNameLabel: UILabel!
     
     var tea: Tea?
+    var valueToPass: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        teaNameLabel.text = valueToPass
 
         // Do any additional setup after loading the view.
     }
@@ -26,14 +29,16 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "EditTea" {
+            let data = segue.destination as? EditTeaViewController
+            data?.toPass = teaNameLabel.text
+        }
     }
-    */
-
 }

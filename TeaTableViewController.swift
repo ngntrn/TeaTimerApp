@@ -99,9 +99,9 @@ class TeaTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if segue.identifier == "EditTea" {
+        if segue.identifier == "ViewTea" {
             let cell = sender as! TeaTableViewCell
-            let vc = segue.destination as! EditTeaViewController
+            let vc = segue.destination as! TimerViewController
             vc.valueToPass = cell.nameLabel?.text
         }
     }
