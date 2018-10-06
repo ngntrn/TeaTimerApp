@@ -28,7 +28,19 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     // MARK: Actions
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        
+        
+        let isInAddTeaMode = presentingViewController is UINavigationController
+        
+        if isInAddTeaMode {
+           dismiss(animated: true, completion: nil)
+        }
+        else if let owningNavigationController = navigationController{
+            owningNavigationController.popViewController(animated: true)
+        }
+        else{
+            fatalError("EditTeaViewController is not inside a navigation controller")
+        }
     }
     
     override func viewDidLoad() {
