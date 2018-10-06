@@ -10,26 +10,26 @@ import UIKit
 import os.log
 
 
-class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate {
+class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate{
     
     // MARK: Properties
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var brewTimeField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
     @IBOutlet weak var timePicker: UIPickerView! = UIPickerView()
     
+    var tea: Tea?
+    var toPass: String!
+    let  timeData = [["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], ["0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"]]
     
+    let minComponent = 0
+    let secComponent = 1
+
     // MARK: Actions
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    var tea: Tea?
-    
-    var toPass: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,11 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         nameTextField.text = toPass
         nameTextField.delegate = self
         
+        timePicker.delegate = self
+        timePicker.dataSource = self
+        timePicker.selectRow(2, inComponent: minComponent, animated: false)
+        updateLabel()
+
         
         // enable save button only if text field has input
         updateSaveButtonState()
@@ -82,6 +87,34 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         // disable save button while editing
         saveButton.isEnabled = false
     }
+    
+    // MARK: UIPickerView
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return timeData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return timeData[component].count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return timeData[component][row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        updateLabel()
+    }
+    
+    // MARK: Instance Methods
+    
+    func updateLabel(){
+        let mins = timeData[minComponent][timePicker.selectedRow(inComponent: minComponent)]
+        let secs = timeData[secComponent][timePicker.selectedRow(inComponent: secComponent)]
+        brewTimeField.text = mins + " min " + secs + " secs "
+    }
+    
+
     
     // MARK: Private Methods
     private func updateSaveButtonState(){
