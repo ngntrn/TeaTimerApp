@@ -13,6 +13,7 @@ class TeaTableViewCell: UITableViewCell {
     //MARK: Properties
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

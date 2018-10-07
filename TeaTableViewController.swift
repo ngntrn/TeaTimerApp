@@ -56,8 +56,8 @@ class TeaTableViewController: UITableViewController {
         let tea = teas[indexPath.row]
         
         cell.nameLabel.text = tea.name
+        cell.timeLabel.text = printTime(seconds: tea.brewtime)
         
-
         return cell
     }
 
@@ -72,7 +72,7 @@ class TeaTableViewController: UITableViewController {
 
     
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
             teas.remove(at: indexPath.row)
@@ -109,7 +109,9 @@ class TeaTableViewController: UITableViewController {
         if segue.identifier == "ViewTea" {
             let cell = sender as! TeaTableViewCell
             let vc = segue.destination as! TimerViewController
-            vc.valueToPass = cell.nameLabel?.text
+            vc.nameValueToPass = cell.nameLabel?.text
+            vc.timeValueToPass = Int((cell.timeLabel?.text)!)
+
         }
     }
     
@@ -159,5 +161,16 @@ class TeaTableViewController: UITableViewController {
     private func loadTeas() -> [Tea]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Tea.ArchiveURL.path) as? [Tea]
     }
+    
+    func convertTime(seconds: Int) ->(Int, Int, Int){
+        
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
+    func printTime(seconds: Int) ->String!{
+        let (_,m,s) = convertTime(seconds: seconds)
+        return (" Brew Time: \(m) mins \(s) secs ")
+    }
+
 
 }

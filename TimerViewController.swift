@@ -7,21 +7,36 @@
 //
 
 import UIKit
+import UICircularProgressRing
 
 class TimerViewController: UIViewController, UINavigationControllerDelegate{
 
     @IBOutlet weak var teaNameLabel: UILabel!
     
+    @IBOutlet weak var progressRing: UICircularProgressRing!
+    
     var tea: Tea?
-    var valueToPass: String!
+    var nameValueToPass: String!
+    var timeValueToPass: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        teaNameLabel.text = valueToPass
+        teaNameLabel.text = nameValueToPass
+        
+        let progressRing = UICircularProgressRing(frame: CGRect(x: 0, y: 0, width: 240, height: 240))
+        // Change any of the properties you'd like
+        progressRing.maxValue = 50
+        
+        progressRing.startProgress(to: 49, duration: 2.0) {
+            print("Done animating!")
+            // Do anything your heart desires...
+        }
+        
 
-        // Do any additional setup after loading the view.
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,7 +53,7 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
         
         if segue.identifier == "EditTea" {
             let data = segue.destination as? EditTeaViewController
-            data?.toPass = teaNameLabel.text
+            data?.nameToPass = teaNameLabel.text
         }
     }
 }

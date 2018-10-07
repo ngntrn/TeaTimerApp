@@ -16,11 +16,14 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var brewTimeField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    @IBOutlet weak var timePicker: UIPickerView! = UIPickerView()
+    @IBOutlet weak var timePicker: UIPickerView! 
     
     var tea: Tea?
-    var toPass: String!
-    let  timeData = [["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], ["0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"]]
+    var nameToPass: String!
+    var timeToPass: Int!
+    
+    let  timeData = [["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+                     ["0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"]]
     
     let minComponent = 0
     let secComponent = 1
@@ -28,8 +31,7 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     // MARK: Actions
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        
-        
+    
         let isInAddTeaMode = presentingViewController is UINavigationController
         
         if isInAddTeaMode {
@@ -46,14 +48,14 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
-        nameTextField.text = toPass
+        nameTextField.text = nameToPass
         nameTextField.delegate = self
         
         timePicker.delegate = self
         timePicker.dataSource = self
-        timePicker.selectRow(2, inComponent: minComponent, animated: false)
+        
+        timePicker.selectRow(3, inComponent: 0, animated: false)
         updateLabel()
 
         
@@ -66,6 +68,20 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func convertTime(seconds: Int) ->(Int, Int, Int){
+        
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
+    func returnMins(seconds: Int) ->Int{
+        let (_,m,s) = convertTime(seconds: seconds)
+        return m
+    }
+    func returnSecs(seconds: Int) -> Int{
+        let (_,m,s) = convertTime(seconds: seconds)
+        return s
+    }
     
     // MARK: - Navigation
 
@@ -80,7 +96,7 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         }
         
         let name = nameTextField.text ?? ""
-        let brewtime = 30
+        let brewtime = getBrewTime()
         
         tea = Tea(name: name, brewtime: brewtime)
         
@@ -125,6 +141,20 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         let mins = timeData[minComponent][timePicker.selectedRow(inComponent: minComponent)]
         let secs = timeData[secComponent][timePicker.selectedRow(inComponent: secComponent)]
         brewTimeField.text = mins + " min " + secs + " secs "
+    }
+    
+    func getBrewTime()-> Int{
+        let mins = timeData[minComponent][timePicker.selectedRow(inComponent: minComponent)]
+        let secs = timeData[secComponent][timePicker.selectedRow(inComponent: secComponent)]
+        
+        let m:Int? = Int(mins)
+        let s:Int? = Int(secs)
+        
+        let brewTime = (60 * m!) + s!
+        
+        print("Brew Time in seconds: \(brewTime)")
+
+        return brewTime
     }
     
 
