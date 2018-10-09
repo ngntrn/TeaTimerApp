@@ -25,27 +25,31 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBk-cL-e3b">
-                                            <rect key="frame" x="16" y="12" width="343" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBk-cL-e3b">
+                                            <rect key="frame" x="36" y="21" width="57" height="29"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtB-p7-Ulg">
-                                            <rect key="frame" x="16" y="51" width="343" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtB-p7-Ulg">
+                                            <rect key="frame" x="36" y="60" width="32" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="secs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C24-vg-erv">
-                                            <rect key="frame" x="171" y="70" width="32" height="19"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="secs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C24-vg-erv">
+                                            <rect key="frame" x="256" y="35" width="22.5" height="19"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="VtB-p7-Ulg" firstAttribute="top" secondItem="zBk-cL-e3b" secondAttribute="bottom" constant="10" id="8oo-BE-rk7"/>
+                                        <constraint firstItem="zBk-cL-e3b" firstAttribute="top" secondItem="cwm-ng-bMf" secondAttribute="topMargin" constant="10" id="H6e-sd-nSo"/>
+                                        <constraint firstItem="zBk-cL-e3b" firstAttribute="leading" secondItem="cwm-ng-bMf" secondAttribute="leadingMargin" constant="20" id="muh-HO-WVe"/>
+                                        <constraint firstItem="VtB-p7-Ulg" firstAttribute="leading" secondItem="cwm-ng-bMf" secondAttribute="leadingMargin" constant="20" id="pHG-yP-2iK"/>
+                                        <constraint firstItem="C24-vg-erv" firstAttribute="leading" secondItem="cwm-ng-bMf" secondAttribute="leading" constant="20" id="yVo-ns-Y1m"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nameLabel" destination="zBk-cL-e3b" id="L7L-in-Zc8"/>
@@ -81,52 +85,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="90" translatesAutoresizingMaskIntoConstraints="NO" id="Dod-uE-egi">
-                                <rect key="frame" x="16" y="98" width="343" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="90" translatesAutoresizingMaskIntoConstraints="NO" id="Dod-uE-egi">
+                                <rect key="frame" x="50" y="114" width="275" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P3p-xL-1ph" customClass="UICircularProgressRing" customModule="UICircularProgressRing">
-                                <rect key="frame" x="67" y="235" width="240" height="234"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="fullCircle" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showsValueKnob" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="ibRingStyle">
-                                        <integer key="value" value="9"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="valueKnobColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="valueKnobShadowColor">
-                                        <color key="value" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="outerRingColor">
-                                        <color key="value" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
-                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
-                                        <color key="value" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rightToLeft" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="NO"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZ2-a0-VNp">
-                                <rect key="frame" x="16" y="147" width="343" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZ2-a0-VNp">
+                                <rect key="frame" x="50" y="164" width="275" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a48-Fm-3KB">
+                                <rect key="frame" x="50" y="525" width="275" height="42"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="tintColor" white="0.37" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="startBrewing:" destination="XVn-7j-tHm" eventType="touchUpInside" id="acS-4N-By7"/>
+                                </connections>
+                            </button>
+                            <view contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2qs-C1-X6W" customClass="ProgressBarView" customModule="TeaTimer" customModuleProvider="target">
+                                <rect key="frame" x="40" y="216" width="295" height="289"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="iZ2-a0-VNp" firstAttribute="top" secondItem="UuW-7z-MdH" secondAttribute="top" constant="100" id="7y1-cg-L2X"/>
+                            <constraint firstItem="iZ2-a0-VNp" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="50" id="F1a-9c-GwJ"/>
+                            <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="Dod-uE-egi" secondAttribute="trailing" constant="50" id="FTk-us-KDF"/>
+                            <constraint firstItem="Dod-uE-egi" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="50" id="P7k-9b-fGt"/>
+                            <constraint firstItem="UuW-7z-MdH" firstAttribute="bottom" secondItem="a48-Fm-3KB" secondAttribute="bottom" constant="100" id="Q3q-Q2-uRk"/>
+                            <constraint firstItem="a48-Fm-3KB" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="50" id="ZhA-Ds-acQ"/>
+                            <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="a48-Fm-3KB" secondAttribute="trailing" constant="50" id="bbQ-Wr-FDe"/>
+                            <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="iZ2-a0-VNp" secondAttribute="trailing" constant="50" id="iqk-IG-Uwf"/>
+                            <constraint firstItem="Dod-uE-egi" firstAttribute="top" secondItem="UuW-7z-MdH" secondAttribute="top" constant="50" id="mL1-4h-TjT"/>
+                            <constraint firstItem="iZ2-a0-VNp" firstAttribute="top" secondItem="UuW-7z-MdH" secondAttribute="top" constant="100" id="opY-s1-RpI"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="UuW-7z-MdH"/>
                     </view>
                     <navigationItem key="navigationItem" id="3Od-K2-TX4">
@@ -137,7 +137,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="progressRing" destination="P3p-xL-1ph" id="VHz-cd-b9B"/>
+                        <outlet property="progressRing" destination="2qs-C1-X6W" id="J9T-eD-A0q"/>
+                        <outlet property="startBtn" destination="a48-Fm-3KB" id="f8W-ft-M5V"/>
                         <outlet property="teaNameLabel" destination="Dod-uE-egi" id="3OV-Yd-ala"/>
                         <outlet property="teaTimeLabel" destination="iZ2-a0-VNp" id="xs6-N8-JkJ"/>
                     </connections>

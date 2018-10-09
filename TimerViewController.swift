@@ -7,14 +7,20 @@
 //
 
 import UIKit
-import UICircularProgressRing
 
 class TimerViewController: UIViewController, UINavigationControllerDelegate{
 
     @IBOutlet weak var teaNameLabel: UILabel!
     @IBOutlet weak var teaTimeLabel: UILabel!
+    @IBOutlet weak var startBtn: UIButton!
     
-    @IBOutlet weak var progressRing: UICircularProgressRing!
+   
+    
+    @IBOutlet weak var progressRing: ProgressBarView!
+    var timer: Timer!
+    var progressCounter: Float = 0
+    var progressIncrement: Float = 0
+    
     
     var tea: Tea?
     var nameValueToPass: String!
@@ -26,21 +32,20 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
         
         teaNameLabel.text = nameValueToPass
         teaTimeLabel.text = timeValueToPass
-        
-        let progressRing = UICircularProgressRing(frame: CGRect(x: 0, y: 0, width: 240, height: 240))
-        // Change any of the properties you'd like
-        progressRing.maxValue = 50
-        
-        progressRing.startProgress(to: 49, duration: 2.0) {
-            print("Done animating!")
-            // Do anything your heart desires...
-        }
-        
-
     }
     
+    @IBAction func startBrewing(_ sender: UIButton) {
+        let duration: Float = Float(secsValueToPass)
+        progressIncrement = 1.0/duration
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector:  #selector(self.showBrewProgress), userInfo: nil, repeats: true)
+    }
     
-
+    @objc func showBrewProgress(){
+        if(progressCounter > 1.0){timer.invalidate()}
+        progressRing.progress = progressCounter
+        progressCounter = progressCounter + progressIncrement
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

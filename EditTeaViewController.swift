@@ -13,6 +13,7 @@ import os.log
 class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate{
     
     // MARK: Properties
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var brewTimeField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -45,14 +46,11 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         nameTextField.text = nameToPass
         nameTextField.delegate = self
-        
-        
         
         timePicker.delegate = self
         timePicker.dataSource = self
@@ -60,6 +58,7 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         let s = returnSecs(seconds: secsToPass)
         let m = returnMins(seconds: secsToPass)
         
+        brewTimeField.delegate = self
         brewTimeField.text =  String(m) + "m " + String(s) + "s "
         
         print("\(m):\(s)")
@@ -180,6 +179,6 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         // disable the save button if text field is empty
         let text = nameTextField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
-
+        
     }
 }
