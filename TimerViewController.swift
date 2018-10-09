@@ -12,17 +12,20 @@ import UICircularProgressRing
 class TimerViewController: UIViewController, UINavigationControllerDelegate{
 
     @IBOutlet weak var teaNameLabel: UILabel!
+    @IBOutlet weak var teaTimeLabel: UILabel!
     
     @IBOutlet weak var progressRing: UICircularProgressRing!
     
     var tea: Tea?
     var nameValueToPass: String!
-    var timeValueToPass: Int!
+    var timeValueToPass: String!
+    var secsValueToPass: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         teaNameLabel.text = nameValueToPass
+        teaTimeLabel.text = timeValueToPass
         
         let progressRing = UICircularProgressRing(frame: CGRect(x: 0, y: 0, width: 240, height: 240))
         // Change any of the properties you'd like
@@ -54,6 +57,10 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
         if segue.identifier == "EditTea" {
             let data = segue.destination as? EditTeaViewController
             data?.nameToPass = teaNameLabel.text
+            data?.secsToPass = secsValueToPass
+            
+            print("seconds to pass: \(secsValueToPass)")
+            
         }
     }
 }

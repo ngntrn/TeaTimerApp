@@ -13,7 +13,7 @@ class TeaTableViewController: UITableViewController {
     
     //MARK: Properties
     var teas = [Tea]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,9 +57,15 @@ class TeaTableViewController: UITableViewController {
         
         cell.nameLabel.text = tea.name
         cell.timeLabel.text = printTime(seconds: tea.brewtime)
+        cell.secsLabel.text = String(tea.brewtime)
+
+        
+        print("\(tea.name) brew time: \(tea.brewtime)")
         
         return cell
     }
+    
+    
 
 
     /*
@@ -106,12 +112,15 @@ class TeaTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
+        
         if segue.identifier == "ViewTea" {
             let cell = sender as! TeaTableViewCell
             let vc = segue.destination as! TimerViewController
             vc.nameValueToPass = cell.nameLabel?.text
-            vc.timeValueToPass = Int((cell.timeLabel?.text)!)
-
+            vc.timeValueToPass = cell.timeLabel?.text
+            vc.secsValueToPass = Int((cell.secsLabel?.text)!)!
+            
+            print("seconds: \(vc.secsValueToPass)")
         }
     }
     
@@ -169,8 +178,26 @@ class TeaTableViewController: UITableViewController {
     
     func printTime(seconds: Int) ->String!{
         let (_,m,s) = convertTime(seconds: seconds)
-        return (" Brew Time: \(m) mins \(s) secs ")
+        
+        if s < 10 && s > 0{
+            return ("\(m) : 0\(s) ")
+        }
+        else if s > 0{
+            return ("\(m) : \(s) ")
+        }
+        else{
+            return ("\(m) : \(s)0 ")
+        }
+        
     }
 
+    func returnSecs(seconds: Int) ->Int{
+        let (_,_,s) = convertTime(seconds: seconds)
+        return s
+    }
 
+    func returnMins(seconds: Int) ->Int{
+        let (_,m,_) = convertTime(seconds: seconds)
+        return m
+    }
 }

@@ -14,6 +14,7 @@ class TeaTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var secsLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

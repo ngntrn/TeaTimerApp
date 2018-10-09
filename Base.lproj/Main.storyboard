@@ -39,10 +39,17 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="secs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C24-vg-erv">
+                                            <rect key="frame" x="171" y="70" width="32" height="19"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nameLabel" destination="zBk-cL-e3b" id="L7L-in-Zc8"/>
+                                    <outlet property="secsLabel" destination="C24-vg-erv" id="S01-Kt-WnC"/>
                                     <outlet property="timeLabel" destination="VtB-p7-Ulg" id="sQ4-Nb-iA8"/>
                                     <segue destination="XVn-7j-tHm" kind="show" identifier="ViewTea" id="Hdd-SW-PQN"/>
                                 </connections>
@@ -110,6 +117,13 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZ2-a0-VNp">
+                                <rect key="frame" x="16" y="147" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -125,6 +139,7 @@
                     <connections>
                         <outlet property="progressRing" destination="P3p-xL-1ph" id="VHz-cd-b9B"/>
                         <outlet property="teaNameLabel" destination="Dod-uE-egi" id="3OV-Yd-ala"/>
+                        <outlet property="teaTimeLabel" destination="iZ2-a0-VNp" id="xs6-N8-JkJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wdO-MI-1B2" userLabel="First Responder" sceneMemberID="firstResponder"/>

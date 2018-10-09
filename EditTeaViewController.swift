@@ -20,7 +20,7 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     var tea: Tea?
     var nameToPass: String!
-    var timeToPass: Int!
+    var secsToPass: Int = 0 
     
     let  timeData = [["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
                      ["0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"]]
@@ -52,12 +52,23 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         nameTextField.text = nameToPass
         nameTextField.delegate = self
         
+        
+        
         timePicker.delegate = self
         timePicker.dataSource = self
         
-        timePicker.selectRow(3, inComponent: 0, animated: false)
-        updateLabel()
+        let s = returnSecs(seconds: secsToPass)
+        let m = returnMins(seconds: secsToPass)
+        
+        brewTimeField.text =  String(m) + "m " + String(s) + "s "
+        
+        print("\(m):\(s)")
+        
+        //minutes
+        timePicker.selectRow(m, inComponent: minComponent, animated: false)
 
+        //seconds
+        timePicker.selectRow((s/5), inComponent: secComponent, animated: false)
         
         // enable save button only if text field has input
         updateSaveButtonState()
@@ -75,11 +86,11 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     }
     
     func returnMins(seconds: Int) ->Int{
-        let (_,m,s) = convertTime(seconds: seconds)
+        let (_,m,_) = convertTime(seconds: seconds)
         return m
     }
     func returnSecs(seconds: Int) -> Int{
-        let (_,m,s) = convertTime(seconds: seconds)
+        let (_,_,s) = convertTime(seconds: seconds)
         return s
     }
     
@@ -140,7 +151,7 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     func updateLabel(){
         let mins = timeData[minComponent][timePicker.selectedRow(inComponent: minComponent)]
         let secs = timeData[secComponent][timePicker.selectedRow(inComponent: secComponent)]
-        brewTimeField.text = mins + " min " + secs + " secs "
+        brewTimeField.text = mins + "m " + secs + "s "
     }
     
     func getBrewTime()-> Int{
@@ -156,15 +167,19 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
 
         return brewTime
     }
-    
-
+    /*
+    func getTeaBrewTime() ->Int{
+        let teaName = nameTextField.text
+        
+        return
+    }
+ */
     
     // MARK: Private Methods
     private func updateSaveButtonState(){
         // disable the save button if text field is empty
         let text = nameTextField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
-        
-    }
 
+    }
 }
