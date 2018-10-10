@@ -1,9 +1,9 @@
 //
 //  ProgressBarView.swift
-//  progressBar
+//  TeaTimer
 //
-//  Created by ashika shanthi on 1/4/18.
-//  Copyright © 2018 ashika shanthi. All rights reserved.
+//  Created by Lucky Tran  on 10/9/18.
+//  Copyright © 2018 Ngan Tran. All rights reserved.
 //
 
 import UIKit
@@ -60,7 +60,6 @@ class ProgressBarView: UIView {
     
     private func createCirclePath()
     {
-        
         let x = self.frame.width/2
         let y = self.frame.height/2
         let center = CGPoint(x: x, y: y)

@@ -97,12 +97,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a48-Fm-3KB">
-                                <rect key="frame" x="50" y="525" width="275" height="42"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a48-Fm-3KB">
+                                <rect key="frame" x="50" y="525" width="52" height="42"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="tintColor" white="0.37" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Start"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="startBrewing:" destination="XVn-7j-tHm" eventType="touchUpInside" id="acS-4N-By7"/>
                                 </connections>
@@ -112,6 +115,22 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7z-PT-fqd">
+                                <rect key="frame" x="263" y="525" width="62" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="resetBtn:" destination="XVn-7j-tHm" eventType="touchUpInside" id="ka9-aX-DsB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Wd-sV-2wQ">
+                                <rect key="frame" x="162" y="525" width="71" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Pause "/>
+                                <connections>
+                                    <action selector="pauseBtn:" destination="XVn-7j-tHm" eventType="touchUpInside" id="ihW-vU-BO4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -119,12 +138,16 @@
                             <constraint firstItem="iZ2-a0-VNp" firstAttribute="top" secondItem="UuW-7z-MdH" secondAttribute="top" constant="100" id="7y1-cg-L2X"/>
                             <constraint firstItem="iZ2-a0-VNp" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="50" id="F1a-9c-GwJ"/>
                             <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="Dod-uE-egi" secondAttribute="trailing" constant="50" id="FTk-us-KDF"/>
+                            <constraint firstItem="6Wd-sV-2wQ" firstAttribute="leading" secondItem="a48-Fm-3KB" secondAttribute="trailing" constant="10" id="NcF-dR-alM"/>
+                            <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="U7z-PT-fqd" secondAttribute="trailing" constant="50" id="NfZ-88-ZLV"/>
                             <constraint firstItem="Dod-uE-egi" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="50" id="P7k-9b-fGt"/>
                             <constraint firstItem="UuW-7z-MdH" firstAttribute="bottom" secondItem="a48-Fm-3KB" secondAttribute="bottom" constant="100" id="Q3q-Q2-uRk"/>
+                            <constraint firstItem="UuW-7z-MdH" firstAttribute="bottom" secondItem="U7z-PT-fqd" secondAttribute="bottom" constant="100" id="VUJ-PG-Lyh"/>
                             <constraint firstItem="a48-Fm-3KB" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="50" id="ZhA-Ds-acQ"/>
-                            <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="a48-Fm-3KB" secondAttribute="trailing" constant="50" id="bbQ-Wr-FDe"/>
+                            <constraint firstItem="UuW-7z-MdH" firstAttribute="bottom" secondItem="6Wd-sV-2wQ" secondAttribute="bottom" constant="100" id="gil-b2-K4H"/>
                             <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="iZ2-a0-VNp" secondAttribute="trailing" constant="50" id="iqk-IG-Uwf"/>
                             <constraint firstItem="Dod-uE-egi" firstAttribute="top" secondItem="UuW-7z-MdH" secondAttribute="top" constant="50" id="mL1-4h-TjT"/>
+                            <constraint firstItem="U7z-PT-fqd" firstAttribute="leading" secondItem="6Wd-sV-2wQ" secondAttribute="trailing" constant="10" id="oJt-9K-aZL"/>
                             <constraint firstItem="iZ2-a0-VNp" firstAttribute="top" secondItem="UuW-7z-MdH" secondAttribute="top" constant="100" id="opY-s1-RpI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UuW-7z-MdH"/>
@@ -137,7 +160,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="pause" destination="6Wd-sV-2wQ" id="Hsw-ic-FHM"/>
                         <outlet property="progressRing" destination="2qs-C1-X6W" id="J9T-eD-A0q"/>
+                        <outlet property="resetBtn" destination="U7z-PT-fqd" id="fwD-UD-a40"/>
                         <outlet property="startBtn" destination="a48-Fm-3KB" id="f8W-ft-M5V"/>
                         <outlet property="teaNameLabel" destination="Dod-uE-egi" id="3OV-Yd-ala"/>
                         <outlet property="teaTimeLabel" destination="iZ2-a0-VNp" id="xs6-N8-JkJ"/>
