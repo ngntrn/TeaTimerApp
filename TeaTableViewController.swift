@@ -11,11 +11,24 @@ import os.log
 
 class TeaTableViewController: UITableViewController {
     
+    struct System {
+        static func clearNavigationBar(forBar navBar: UINavigationBar) {
+            navBar.setBackgroundImage(UIImage(), for: .default)
+            navBar.shadowImage = UIImage()
+            navBar.isTranslucent = true
+        }
+    }
+    
     //MARK: Properties
     var teas = [Tea]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let navController = navigationController {
+            System.clearNavigationBar(forBar: navController.navigationBar)
+            navController.view.backgroundColor = .clear
+        }
         
         // use edit button
         navigationItem.leftBarButtonItem = editButtonItem
@@ -140,6 +153,7 @@ class TeaTableViewController: UITableViewController {
             saveTeas()
         }
     }
+    
     
     // MARK: Private Methods
     private func loadSampleTeas(){

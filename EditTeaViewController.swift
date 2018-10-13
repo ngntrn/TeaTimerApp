@@ -10,6 +10,7 @@ import UIKit
 import os.log
 
 
+
 class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate{
     
     // MARK: Properties
@@ -29,6 +30,13 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     let minComponent = 0
     let secComponent = 1
 
+    struct System {
+        static func clearNavigationBar(forBar navBar: UINavigationBar) {
+            navBar.setBackgroundImage(UIImage(), for: .default)
+            navBar.shadowImage = UIImage()
+            navBar.isTranslucent = true
+        }
+    }
     // MARK: Actions
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -48,6 +56,11 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let navController = navigationController {
+            System.clearNavigationBar(forBar: navController.navigationBar)
+            navController.view.backgroundColor = .clear
+        }
         
         nameTextField.text = nameToPass
         nameTextField.delegate = self
@@ -166,19 +179,11 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
 
         return brewTime
     }
-    /*
-    func getTeaBrewTime() ->Int{
-        let teaName = nameTextField.text
-        
-        return
-    }
- */
     
     // MARK: Private Methods
     private func updateSaveButtonState(){
         // disable the save button if text field is empty
         let text = nameTextField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
-        
     }
 }

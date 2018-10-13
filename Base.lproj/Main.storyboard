@@ -8,32 +8,49 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-ExtraLight.otf">
+            <string>Montserrat-ExtraLight</string>
+        </array>
+        <array key="Montserrat-Light.otf">
+            <string>Montserrat-Light</string>
+        </array>
+        <array key="Montserrat-Regular.otf">
+            <string>Montserrat-Regular</string>
+        </array>
+        <array key="Montserrat-SemiBold.otf">
+            <string>Montserrat-SemiBold</string>
+        </array>
+        <array key="Montserrat-Thin.otf">
+            <string>Montserrat-Thin</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--your teas-->
+        <!--Tea Table View Controller-->
         <scene sceneID="Qg8-iP-Lyy">
             <objects>
-                <tableViewController id="oED-Kj-SjN" customClass="TeaTableViewController" customModule="TeaTimer" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="oED-Kj-SjN" customClass="TeaTableViewController" customModule="testApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3RJ-e2-NHD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TeaTableViewCell" rowHeight="90" id="zEG-9B-q1W" customClass="TeaTableViewCell" customModule="TeaTimer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TeaTableViewCell" rowHeight="90" id="zEG-9B-q1W" customClass="TeaTableViewCell" customModule="testApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zEG-9B-q1W" id="cwm-ng-bMf">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBk-cL-e3b">
-                                            <rect key="frame" x="36" y="21" width="57" height="29"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zBk-cL-e3b">
+                                            <rect key="frame" x="36" y="21" width="74" height="33"/>
+                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="27"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtB-p7-Ulg">
-                                            <rect key="frame" x="36" y="60" width="32" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Time" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VtB-p7-Ulg">
+                                            <rect key="frame" x="36" y="64" width="74" height="25"/>
+                                            <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -64,8 +81,8 @@
                             <outlet property="delegate" destination="oED-Kj-SjN" id="c57-w4-qTL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="your teas" id="253-Uf-rty">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="qEt-HN-pVX">
+                    <navigationItem key="navigationItem" id="253-Uf-rty">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="qEt-HN-pVX">
                             <color key="tintColor" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="dhV-0J-KMK" kind="show" identifier="AddTea" id="hxq-KN-kHw"/>
@@ -80,29 +97,16 @@
         <!--Timer View Controller-->
         <scene sceneID="kFi-Fd-NfJ">
             <objects>
-                <viewController id="XVn-7j-tHm" userLabel="Timer View Controller" customClass="TimerViewController" customModule="TeaTimer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XVn-7j-tHm" userLabel="Timer View Controller" customClass="TimerViewController" customModule="testApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o5H-22-wHA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="90" translatesAutoresizingMaskIntoConstraints="NO" id="Dod-uE-egi">
-                                <rect key="frame" x="50" y="114" width="275" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZ2-a0-VNp">
-                                <rect key="frame" x="50" y="164" width="275" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a48-Fm-3KB">
-                                <rect key="frame" x="50" y="525" width="52" height="42"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a48-Fm-3KB">
+                                <rect key="frame" x="80" y="544" width="77" height="43"/>
+                                <fontDescription key="fontDescription" name="Montserrat-ExtraLight" family="Montserrat" pointSize="25"/>
                                 <color key="tintColor" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Start"/>
+                                <state key="normal" title="START"/>
                                 <state key="highlighted">
                                     <color key="titleColor" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -110,80 +114,75 @@
                                     <action selector="startBrewing:" destination="XVn-7j-tHm" eventType="touchUpInside" id="acS-4N-By7"/>
                                 </connections>
                             </button>
-                            <view contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2qs-C1-X6W" customClass="ProgressBarView" customModule="TeaTimer" customModuleProvider="target">
-                                <rect key="frame" x="40" y="216" width="295" height="289"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7z-PT-fqd">
-                                <rect key="frame" x="263" y="525" width="62" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Reset"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7z-PT-fqd">
+                                <rect key="frame" x="214" y="544" width="81" height="43"/>
+                                <fontDescription key="fontDescription" name="Montserrat-ExtraLight" family="Montserrat" pointSize="25"/>
+                                <state key="normal" title="RESET"/>
                                 <connections>
                                     <action selector="resetBtn:" destination="XVn-7j-tHm" eventType="touchUpInside" id="ka9-aX-DsB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Wd-sV-2wQ">
-                                <rect key="frame" x="162" y="525" width="71" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Pause "/>
-                                <connections>
-                                    <action selector="pauseBtn:" destination="XVn-7j-tHm" eventType="touchUpInside" id="ihW-vU-BO4"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iZ2-a0-VNp">
+                                <rect key="frame" x="54" y="272.5" width="267" height="122"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Thin" family="Montserrat" pointSize="100"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="90" translatesAutoresizingMaskIntoConstraints="NO" id="Dod-uE-egi">
+                                <rect key="frame" x="50" y="219.5" width="275" height="43"/>
+                                <fontDescription key="fontDescription" name="Montserrat-ExtraLight" family="Montserrat" pointSize="35"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="iZ2-a0-VNp" firstAttribute="top" secondItem="UuW-7z-MdH" secondAttribute="top" constant="100" id="7y1-cg-L2X"/>
-                            <constraint firstItem="iZ2-a0-VNp" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="50" id="F1a-9c-GwJ"/>
-                            <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="Dod-uE-egi" secondAttribute="trailing" constant="50" id="FTk-us-KDF"/>
-                            <constraint firstItem="6Wd-sV-2wQ" firstAttribute="leading" secondItem="a48-Fm-3KB" secondAttribute="trailing" constant="10" id="NcF-dR-alM"/>
-                            <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="U7z-PT-fqd" secondAttribute="trailing" constant="50" id="NfZ-88-ZLV"/>
-                            <constraint firstItem="Dod-uE-egi" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="50" id="P7k-9b-fGt"/>
-                            <constraint firstItem="UuW-7z-MdH" firstAttribute="bottom" secondItem="a48-Fm-3KB" secondAttribute="bottom" constant="100" id="Q3q-Q2-uRk"/>
-                            <constraint firstItem="UuW-7z-MdH" firstAttribute="bottom" secondItem="U7z-PT-fqd" secondAttribute="bottom" constant="100" id="VUJ-PG-Lyh"/>
-                            <constraint firstItem="a48-Fm-3KB" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="50" id="ZhA-Ds-acQ"/>
-                            <constraint firstItem="UuW-7z-MdH" firstAttribute="bottom" secondItem="6Wd-sV-2wQ" secondAttribute="bottom" constant="100" id="gil-b2-K4H"/>
-                            <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="iZ2-a0-VNp" secondAttribute="trailing" constant="50" id="iqk-IG-Uwf"/>
-                            <constraint firstItem="Dod-uE-egi" firstAttribute="top" secondItem="UuW-7z-MdH" secondAttribute="top" constant="50" id="mL1-4h-TjT"/>
-                            <constraint firstItem="U7z-PT-fqd" firstAttribute="leading" secondItem="6Wd-sV-2wQ" secondAttribute="trailing" constant="10" id="oJt-9K-aZL"/>
-                            <constraint firstItem="iZ2-a0-VNp" firstAttribute="top" secondItem="UuW-7z-MdH" secondAttribute="top" constant="100" id="opY-s1-RpI"/>
+                            <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="U7z-PT-fqd" secondAttribute="trailing" constant="80" id="5D4-h7-7EL"/>
+                            <constraint firstItem="Dod-uE-egi" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="50" id="7Ja-FP-2GF"/>
+                            <constraint firstItem="iZ2-a0-VNp" firstAttribute="centerX" secondItem="o5H-22-wHA" secondAttribute="centerX" id="Okm-Wc-GT6"/>
+                            <constraint firstItem="a48-Fm-3KB" firstAttribute="leading" secondItem="UuW-7z-MdH" secondAttribute="leading" constant="80" id="Omy-wR-jL6"/>
+                            <constraint firstAttribute="bottom" secondItem="a48-Fm-3KB" secondAttribute="bottom" constant="80" id="WmA-DP-twc"/>
+                            <constraint firstItem="iZ2-a0-VNp" firstAttribute="centerY" secondItem="o5H-22-wHA" secondAttribute="centerY" id="bDj-zt-vi2"/>
+                            <constraint firstItem="iZ2-a0-VNp" firstAttribute="top" secondItem="Dod-uE-egi" secondAttribute="bottom" constant="10" id="exg-dc-nWp"/>
+                            <constraint firstItem="UuW-7z-MdH" firstAttribute="trailing" secondItem="Dod-uE-egi" secondAttribute="trailing" constant="50" id="ixg-aM-134"/>
+                            <constraint firstAttribute="bottom" secondItem="U7z-PT-fqd" secondAttribute="bottom" constant="80" id="okH-ZJ-cYb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UuW-7z-MdH"/>
                     </view>
-                    <navigationItem key="navigationItem" id="3Od-K2-TX4">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="hIJ-QM-Vin">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="3Od-K2-TX4">
+                        <barButtonItem key="backBarButtonItem" id="QMt-Ok-gcK"/>
+                        <barButtonItem key="rightBarButtonItem" title="EDIT" id="hIJ-QM-Vin">
                             <connections>
                                 <segue destination="BlY-e7-X6e" kind="show" identifier="EditTea" id="egS-AY-YsY"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="pause" destination="6Wd-sV-2wQ" id="Hsw-ic-FHM"/>
-                        <outlet property="progressRing" destination="2qs-C1-X6W" id="J9T-eD-A0q"/>
                         <outlet property="resetBtn" destination="U7z-PT-fqd" id="fwD-UD-a40"/>
                         <outlet property="startBtn" destination="a48-Fm-3KB" id="f8W-ft-M5V"/>
                         <outlet property="teaNameLabel" destination="Dod-uE-egi" id="3OV-Yd-ala"/>
                         <outlet property="teaTimeLabel" destination="iZ2-a0-VNp" id="xs6-N8-JkJ"/>
+                        <segue destination="bDd-yk-Qko" kind="unwind" identifier="ReturnToTeas" unwindAction="unwindToTeaListWithSender:" id="GxC-Kf-SlB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wdO-MI-1B2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="bDd-yk-Qko" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="332" y="95.802098950524751"/>
+            <point key="canvasLocation" x="331.8840579710145" y="95.758928571428569"/>
         </scene>
         <!--Edit Tea View Controller-->
         <scene sceneID="WEt-Hj-410">
             <objects>
-                <viewController id="BlY-e7-X6e" customClass="EditTeaViewController" customModule="TeaTimer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BlY-e7-X6e" customClass="EditTeaViewController" customModule="testApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vzg-MO-LVB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tea Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTf-5E-h5C">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TEA NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTf-5E-h5C">
                                 <rect key="frame" x="16" y="124" width="123" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -191,13 +190,13 @@
                                 <rect key="frame" x="16" y="153" width="224" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Brew Time " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="teA-Pv-627">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BREW TIME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="teA-Pv-627">
                                 <rect key="frame" x="16" y="212" width="123" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -218,12 +217,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="Cxr-z4-BCh">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="vJQ-Rp-7sy"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Mwf-Tr-4Md">
+                        <barButtonItem key="leftBarButtonItem" title="CANCEL" id="Mwf-Tr-4Md">
                             <connections>
                                 <action selector="cancel:" destination="BlY-e7-X6e" id="YVb-rb-7bK"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="Ncd-ez-09K">
+                        <barButtonItem key="rightBarButtonItem" title="SAVE" id="Ncd-ez-09K">
                             <connections>
                                 <segue destination="5N0-j5-ZTO" kind="unwind" unwindAction="unwindToTeaListWithSender:" id="qA6-ew-EuY"/>
                             </connections>
@@ -279,7 +278,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="egS-AY-YsY"/>
+        <segue reference="99h-wn-dIc"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.4045178612" green="0.5" blue="0.49332974200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
