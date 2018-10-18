@@ -9,6 +9,26 @@
 import UIKit
 import UserNotifications
 
+extension UILabel {
+    func addCharacterSpacing(kernValue: Double = 4) {
+        if let labelText = text, labelText.count > 0 {
+            let attributedString = NSMutableAttributedString(string: labelText)
+            attributedString.addAttribute(NSAttributedString.Key.kern, value: kernValue, range: NSRange(location: 0, length: attributedString.length - 1))
+            attributedText = attributedString
+        }
+    }
+}
+
+extension UIView{
+    func addShadow(){
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowRadius = 2.0
+        self.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+    }
+}
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+    
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge],completionHandler:{didAllow, error in
         })
         

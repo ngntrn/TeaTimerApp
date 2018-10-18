@@ -17,9 +17,10 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var brewTimeField: UITextField!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
+    //@IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var timePicker: UIPickerView! 
     
+    @IBOutlet weak var saveButton: SpringButton!
     var tea: Tea?
     var nameToPass: String!
     var secsToPass: Int = 0 
@@ -29,6 +30,8 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     let minComponent = 0
     let secComponent = 1
+    
+    var brewTimeInSecs: Int = 0
 
     struct System {
         static func clearNavigationBar(forBar navBar: UINavigationBar) {
@@ -37,6 +40,7 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
             navBar.isTranslucent = true
         }
     }
+    
     // MARK: Actions
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -57,16 +61,26 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+        
         if let navController = navigationController {
             System.clearNavigationBar(forBar: navController.navigationBar)
             navController.view.backgroundColor = .clear
         }
         
-        nameTextField.text = nameToPass
+        if nameToPass != nil{
+            nameTextField.text = nameToPass.capitalized
+        }
+        
+        saveButton.backgroundColor = UIColor(red: 145/255, green: 189/255, blue: 167/255, alpha: 0.5)
+        saveButton.layer.cornerRadius = 10
+        
         nameTextField.delegate = self
         
         timePicker.delegate = self
         timePicker.dataSource = self
+        timePicker.isHidden = true
         
         let s = returnSecs(seconds: secsToPass)
         let m = returnMins(seconds: secsToPass)
@@ -86,6 +100,10 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         updateSaveButtonState()
     }
 
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        nameTextField.resignFirstResponder()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -112,11 +130,21 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        //configure the desitnation view controller only when save button is pressed
-        guard let button = sender as? UIBarButtonItem, button === saveButton else{
+        //configure the destination view controller only when save button is pressed
+        guard let button = sender as? SpringButton, button === saveButton else{
             os_log("Save not pressed; canceling", log: OSLog.default, type: .debug)
             return
         }
+        
+        
+        let vc = segue.destination as! TimerViewController
+        vc.secsValueToPassFromEdit = getBrewTime()
+        
+        print("brewtime edited to pass: \(vc.secsValueToPassFromEdit)")
+        
+        saveButton.animation = "shake"
+        saveButton.duration = 4
+        saveButton.animate()
         
         let name = nameTextField.text ?? ""
         let brewtime = getBrewTime()
@@ -133,11 +161,22 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     }
     func textFieldDidEndEditing(_ textField: UITextField){
         updateSaveButtonState()
-        navigationItem.title = textField.text
+        //navigationItem.title = textField.text
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // disable save button while editing
+        
         saveButton.isEnabled = false
+        
+        if textField == brewTimeField{
+            brewTimeField.resignFirstResponder()
+            timePicker.isHidden = false
+        }
+        
+        if textField == nameTextField{
+            timePicker.isHidden = true
+        }
+        
     }
     
     // MARK: UIPickerView
@@ -156,7 +195,12 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         updateLabel()
+        if component == 1 && component == 2{
+            timePicker.isHidden = true
+        }
+        
     }
+    
     
     // MARK: Instance Methods
     
@@ -173,11 +217,11 @@ class EditTeaViewController: UIViewController, UITextFieldDelegate, UINavigation
         let m:Int? = Int(mins)
         let s:Int? = Int(secs)
         
-        let brewTime = (60 * m!) + s!
+        brewTimeInSecs = (60 * m!) + s!
         
-        print("Brew Time in seconds: \(brewTime)")
-
-        return brewTime
+        print("Brew Time in seconds: \(brewTimeInSecs)")
+        
+        return brewTimeInSecs
     }
     
     // MARK: Private Methods

@@ -10,10 +10,9 @@ import UIKit
 import AVFoundation
 import Lottie
 import UserNotifications
+import AudioToolbox
 
-// undo till here
-
-class TimerViewController: UIViewController, UINavigationControllerDelegate{
+class TimerViewController: UIViewController, UINavigationControllerDelegate {
     
     struct System {
         static func clearNavigationBar(forBar navBar: UINavigationBar) {
@@ -27,43 +26,76 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
     @IBOutlet weak var teaTimeLabel: UILabel!
     @IBOutlet weak var startBtn: UIButton!
     @IBOutlet weak var resetBtn: UIButton!
+    @IBOutlet weak var doneBtn: UIButton!
+    @IBOutlet weak var doneImageSpring: SpringImageView!
     
     var player: AVAudioPlayer?
     var timer: Timer!
     var tea: Tea?
+    var startDate = Date()
+    
     var nameValueToPass: String!
     var timeValueToPass: String!
     var secsValueToPass: Int = 0
+    var secsValueToPassFromEdit: Int = 0 
+    var teaIndexToPass: Int = 0
     var isTimeRunning = false
     var stopBtnPushed = false
+    var doneBtnPushed = false
     var seconds: Int = 0
-
     var timeInterval = 0
-    var startDate = Date()
+    
     
     let systemSoundID: SystemSoundID = 1322
     let animationView = LOTAnimationView(name: "wave")
-    
-    var endingTime = 0
+    let doneImage = UIImage(named:"doneImg.png")
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-                
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(observerMethod), name: UIApplication.didEnterBackgroundNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(observerMethod), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
         
         if let navController = navigationController {
             System.clearNavigationBar(forBar: navController.navigationBar)
             navController.view.backgroundColor = .clear
         }
         
-        seconds = secsValueToPass
-        teaNameLabel.text = nameValueToPass
+        print("secs to pass from table: \(secsValueToPass)")
+        print("secs to pass from edit: \(secsValueToPassFromEdit)")
+        print("secs edit value: \(secsValueToPassFromEdit)")
+        
+        if secsValueToPass == 0{
+            seconds = secsValueToPassFromEdit
+        }
+        else{
+            seconds = secsValueToPass
+        }
+        
+        teaNameLabel.text = nameValueToPass.uppercased()
+        teaNameLabel.addCharacterSpacing()
         teaTimeLabel.text = timeString(time: TimeInterval(secsValueToPass))
         
+        startBtn.backgroundColor = UIColor(red: 145/255, green: 189/255, blue: 167/255, alpha: 0.5)
+        startBtn.layer.cornerRadius = 10
+        
+        resetBtn.backgroundColor = UIColor(red: 145/255, green: 189/255, blue: 167/255, alpha: 0.5)
+        resetBtn.layer.cornerRadius = 10
+        
+        doneBtn.backgroundColor = UIColor(red: 145/255, green: 189/255, blue: 167/255, alpha: 0.5)
+        doneBtn.layer.cornerRadius = 10
+        
         resetBtn.isEnabled = false
+        doneBtn.isHidden = true
+        doneImageSpring.isHidden = true
     }
+    
+    
     
     
     @IBAction func startBrewing(_ sender: UIButton) {
@@ -85,6 +117,7 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
             notificationContent.title = "It's Tea Time"
             notificationContent.subtitle = ""
             notificationContent.body = "Your tea is ready! Enjoy."
+            notificationContent.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "teachime.mp3"))
 
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(seconds), repeats: false)
             
@@ -102,6 +135,7 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
             self.stopBtnPushed = false
             self.startBtn.setTitle("START", for: .normal)
             self.startBtn.isEnabled = false
+            startBtn.backgroundColor = UIColor(red: 145/255, green: 189/255, blue: 167/255, alpha: 0.1)
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
     }
@@ -109,26 +143,42 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
     @IBAction func resetBtn(_ sender: UIButton) {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        timer.invalidate()
         
+        teaNameLabel.isHidden = false
+        timer.invalidate()
         seconds = secsValueToPass
         teaTimeLabel.text = timeString(time: TimeInterval(seconds))
         
         animationView.isHidden = true
-        
+        doneImageSpring.isHidden = true
         isTimeRunning = false
         stopBtnPushed = false 
         startBtn.setTitle("START", for: .normal)
         startBtn.isEnabled = true
+        startBtn.backgroundColor = UIColor(red: 145/255, green: 189/255, blue: 167/255, alpha: 0.5)
+    }
+    
+    @IBAction func doneBtnAction(_ sender: UIButton) {
+        self.doneBtn.setTitle("DONE", for: .normal)
+        player?.stop()
+        doneBtn.isHidden = true
+        startBtn.isHidden = false
+        resetBtn.isHidden = false
+        startBtn.setTitle("START", for: .normal)
+        startBtn.isEnabled = false
+        doneImageSpring.isHidden = true
+        teaTimeLabel.isHidden = false
+        teaNameLabel.isHidden = false
+        startBtn.backgroundColor = UIColor(red: 145/255, green: 189/255, blue: 167/255, alpha: 0.1)
     }
     
     @objc func observerMethod(notification: NSNotification){
         if notification.name == UIApplication.didEnterBackgroundNotification {
             print("app entering background")
-    
-            
             // stop UI update
-            timer.invalidate()
+            if isTimeRunning == true{
+                timer.invalidate()
+            }
         } else if notification.name == UIApplication.didBecomeActiveNotification {
             print("app entering foreground")
                 seconds = secsValueToPass - Int(floor(-startDate.timeIntervalSinceNow))
@@ -142,7 +192,7 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
     }
 
     func runTimer(){
-        //hide the navigation bar
+        // hide the navigation bar
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
@@ -154,7 +204,11 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
         if seconds < 1 {
             timer.invalidate()
             alertDone()
+            startBtn.isEnabled = false
             isTimeRunning = false
+            doneBtn.isHidden = false
+            startBtn.isHidden = true
+            resetBtn.isHidden = true
         }
         else {
             if seconds != 0{
@@ -171,13 +225,10 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
     }
     
     @IBAction func unwindToTeaListWithSender(segue: UIStoryboardSegue) {
-        
     }
-    
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
 
@@ -195,23 +246,28 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
     }
     
     func alertDone(){
+
+        doneImageSpring.isHidden = false
+        teaNameLabel.isHidden = true
         
-        /*
-        let alertController = UIAlertController(title: " ", message: "your tea is ready", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "ok", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
-        AudioServicesPlaySystemSound(systemSoundID)
-        present(alertController, animated: true, completion: nil)
-        */
-        teaTimeLabel.text = "DONE!"
-        playSound()
+        doneImageSpring.animation = "swing"
+        doneImageSpring.force = 0.2
+        doneImageSpring.duration = 4
+        doneImageSpring.repeatCount = 10
+        doneImageSpring.animate()
+        
+        teaTimeLabel.isHidden = true
         // turn the waves animation off
         animationView.stop()
         animationView.isHidden = true
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        playSound()
+        // vibrate phone
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        startBtn.backgroundColor = UIColor(red: 145/255, green: 189/255, blue: 167/255, alpha: 0.1)
     }
-    func
-        runAnimation(){
+    
+    func runAnimation(){
         
         animationView.frame = CGRect(x:0, y:0, width: 1000, height: 1000)
         animationView.center = self.view.center
@@ -235,11 +291,36 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate{
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
             
             player!.play()
+        
+            player?.numberOfLoops = -1
             
         }catch let error as NSError{
             print("error: \(error.localizedDescription)")
         }
     }
+    
+    @IBAction func unwindToViewControllerWithSender(sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? EditTeaViewController, let tea = sourceViewController.tea{
+            
+            secsValueToPass = 0
+            viewDidLoad()
+            
+            teaTimeLabel.text = timeString(time: TimeInterval(secsValueToPassFromEdit))
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+          
+            let selectedIndexPath = teaIndexToPass
+            // update existing tea
+            teas[selectedIndexPath] = tea
+            
+            // save the tea in list
+            do{
+                try NSKeyedArchiver.archivedData(withRootObject: teas, requiringSecureCoding: false).write(to: Tea.ArchiveURL)
+                print("tea was updated")
+            } catch{
+                print("Error saving updated tea")
+            }
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+        }
+    }
 }
-
-

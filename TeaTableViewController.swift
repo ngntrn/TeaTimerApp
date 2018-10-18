@@ -9,7 +9,11 @@
 import UIKit
 import os.log
 
-class TeaTableViewController: UITableViewController {
+var teas = [Tea]()
+
+class TeaTableViewController: UITableViewController, UISearchBarDelegate {
+    
+    var teaIndexInTable: Int = 0
     
     struct System {
         static func clearNavigationBar(forBar navBar: UINavigationBar) {
@@ -18,12 +22,13 @@ class TeaTableViewController: UITableViewController {
             navBar.isTranslucent = true
         }
     }
-    
-    //MARK: Properties
-    var teas = [Tea]()
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
+        
+        //setTableViewBackgroundColors(sender: self, UIColor.lightGray, UIColor.white)
         
         if let navController = navigationController {
             System.clearNavigationBar(forBar: navController.navigationBar)
@@ -43,6 +48,17 @@ class TeaTableViewController: UITableViewController {
         }
     }
 
+    @objc func loadList(notification: NSNotification){
+        //load data here
+        self.tableView.reloadData()
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
+    }
+  
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -69,6 +85,7 @@ class TeaTableViewController: UITableViewController {
         let tea = teas[indexPath.row]
         
         cell.nameLabel.text = tea.name
+        cell.nameLabel.addCharacterSpacing()
         cell.timeLabel.text = printTime(seconds: tea.brewtime)
         cell.secsLabel.text = String(tea.brewtime)
 
@@ -78,13 +95,13 @@ class TeaTableViewController: UITableViewController {
         return cell
     }
     
-    /*
+
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+
 
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -98,20 +115,15 @@ class TeaTableViewController: UITableViewController {
         }    
     }
     
-    /*
+
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+        let rowToMove = teas[fromIndexPath.row]
+        teas.remove(at: fromIndexPath.row)
+        teas.insert(rowToMove, at: to.row)
+        
+        saveTeas()
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     
     // MARK: - Navigation
@@ -119,22 +131,23 @@ class TeaTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        
-        
+    
         if segue.identifier == "ViewTea" {
             let cell = sender as! TeaTableViewCell
             let vc = segue.destination as! TimerViewController
             vc.nameValueToPass = cell.nameLabel?.text
             vc.timeValueToPass = cell.timeLabel?.text
             vc.secsValueToPass = Int((cell.secsLabel?.text)!)!
-            
+            vc.teaIndexToPass = Int(tableView.indexPathForSelectedRow!.row)
             print("seconds: \(vc.secsValueToPass)")
+            print("tea index: \(vc.teaIndexToPass)")
+            
         }
     }
     
     
     // MARK: Actions
-    @IBAction func unwindToTeaList(sender: UIStoryboardSegue){
+    @IBAction func unwindToViewControllerWithSender(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? EditTeaViewController, let tea = sourceViewController.tea{
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow{
@@ -157,22 +170,23 @@ class TeaTableViewController: UITableViewController {
     
     // MARK: Private Methods
     private func loadSampleTeas(){
-        guard let tea1 = Tea(name: "Green Tea", brewtime: 180) else{fatalError("Unable to instantiate tea 1")}
+        guard let tea1 = Tea(name: "Green Tea", brewtime: 180)
+            else{fatalError("Unable to instantiate tea 1")}
         
-        guard let tea2 = Tea(name: "Black Tea", brewtime: 240) else{fatalError("Unable to instantiate tea 2")}
+        guard let tea2 = Tea(name: "Black Tea", brewtime: 240)
+            else{fatalError("Unable to instantiate tea 2")}
         
-        guard let tea3 = Tea(name: "White Tea", brewtime: 150) else{fatalError("Unable to instantiate tea 3")}
+        guard let tea3 = Tea(name: "White Tea", brewtime: 150)
+            else{fatalError("Unable to instantiate tea 3")}
         
         teas += [tea1, tea2, tea3]
     }
     
     private func saveTeas(){
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(teas, toFile: Tea.ArchiveURL.path)
-        if isSuccessfulSave {
-            os_log("Teas successfully saved", log: OSLog.default, type: .debug)
-        }
-        else{
-            os_log("Failed to save", log: OSLog.default, type: .error)
+        do{
+            try NSKeyedArchiver.archivedData(withRootObject: teas, requiringSecureCoding: false).write(to: Tea.ArchiveURL)
+        } catch{
+            print("Error writing file")
         }
     }
     
