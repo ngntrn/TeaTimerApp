@@ -135,11 +135,10 @@ class TeaTableViewController: UITableViewController, UISearchBarDelegate {
         if segue.identifier == "ViewTea" {
             let cell = sender as! TeaTableViewCell
             let vc = segue.destination as! TimerViewController
-            vc.nameValueToPass = cell.nameLabel?.text
-            vc.timeValueToPass = cell.timeLabel?.text
-            vc.secsValueToPass = Int((cell.secsLabel?.text)!)!
+            //vc.nameValueToPass = cell.nameLabel?.text
+            //vc.timeValueToPass = cell.timeLabel?.text
+            //vc.secsValueToPass = Int((cell.secsLabel?.text)!)!
             vc.teaIndexToPass = Int(tableView.indexPathForSelectedRow!.row)
-            print("seconds: \(vc.secsValueToPass)")
             print("tea index: \(vc.teaIndexToPass)")
             
         }

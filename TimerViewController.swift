@@ -31,20 +31,16 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate {
     
     var player: AVAudioPlayer?
     var timer: Timer!
-    var tea: Tea?
+    var tea: Tea!
     var startDate = Date()
     
-    var nameValueToPass: String!
-    var timeValueToPass: String!
-    var secsValueToPass: Int = 0
-    var secsValueToPassFromEdit: Int = 0 
     var teaIndexToPass: Int = 0
     var isTimeRunning = false
     var stopBtnPushed = false
     var doneBtnPushed = false
     var seconds: Int = 0
     var timeInterval = 0
-    
+    var teaName = String()
     
     let systemSoundID: SystemSoundID = 1322
     let animationView = LOTAnimationView(name: "wave")
@@ -66,20 +62,19 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate {
             navController.view.backgroundColor = .clear
         }
         
-        print("secs to pass from table: \(secsValueToPass)")
-        print("secs to pass from edit: \(secsValueToPassFromEdit)")
-        print("secs edit value: \(secsValueToPassFromEdit)")
+        print("\(teaIndexToPass)")
         
-        if secsValueToPass == 0{
-            seconds = secsValueToPassFromEdit
-        }
-        else{
-            seconds = secsValueToPass
-        }
+        tea = teas[teaIndexToPass]
         
-        teaNameLabel.text = nameValueToPass.uppercased()
+        teaName = tea.name
+        seconds = tea.brewtime
+        
+        print("tea name: \(teaName)")
+        print("brew time: \(seconds)")
+        
+        teaNameLabel.text = teaName.uppercased()
         teaNameLabel.addCharacterSpacing()
-        teaTimeLabel.text = timeString(time: TimeInterval(secsValueToPass))
+        teaTimeLabel.text = timeString(time: TimeInterval(tea.brewtime))
         
         startBtn.backgroundColor = UIColor(red: 145/255, green: 189/255, blue: 167/255, alpha: 0.5)
         startBtn.layer.cornerRadius = 10
@@ -94,8 +89,6 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate {
         doneBtn.isHidden = true
         doneImageSpring.isHidden = true
     }
-    
-    
     
     
     @IBAction func startBrewing(_ sender: UIButton) {
@@ -143,12 +136,10 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate {
     @IBAction func resetBtn(_ sender: UIButton) {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
         teaNameLabel.isHidden = false
         timer.invalidate()
-        seconds = secsValueToPass
+        seconds = tea.brewtime
         teaTimeLabel.text = timeString(time: TimeInterval(seconds))
-        
         animationView.isHidden = true
         doneImageSpring.isHidden = true
         isTimeRunning = false
@@ -181,7 +172,7 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate {
             }
         } else if notification.name == UIApplication.didBecomeActiveNotification {
             print("app entering foreground")
-                seconds = secsValueToPass - Int(floor(-startDate.timeIntervalSinceNow))
+                seconds = tea.brewtime - Int(floor(-startDate.timeIntervalSinceNow))
                 runTimer()
         }
     }
@@ -202,8 +193,8 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate {
     
     @objc func updateTimer(){
         if seconds < 1 {
-            timer.invalidate()
             alertDone()
+            timer.invalidate()
             startBtn.isEnabled = false
             isTimeRunning = false
             doneBtn.isHidden = false
@@ -237,19 +228,17 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate {
         if segue.identifier == "EditTea" {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             let data = segue.destination as? EditTeaViewController
-            data?.nameToPass = teaNameLabel.text
-            data?.secsToPass = secsValueToPass
+            //data?.nameToPass = teaNameLabel.text
+            data?.teaIndexValToPass = teaIndexToPass
             
-            print("seconds to pass: \(secsValueToPass)")
+
         }
         
     }
     
     func alertDone(){
-
         doneImageSpring.isHidden = false
         teaNameLabel.isHidden = true
-        
         doneImageSpring.animation = "swing"
         doneImageSpring.force = 0.2
         doneImageSpring.duration = 4
@@ -302,25 +291,24 @@ class TimerViewController: UIViewController, UINavigationControllerDelegate {
     @IBAction func unwindToViewControllerWithSender(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? EditTeaViewController, let tea = sourceViewController.tea{
             
-            secsValueToPass = 0
-            viewDidLoad()
-            
-            teaTimeLabel.text = timeString(time: TimeInterval(secsValueToPassFromEdit))
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-          
-            let selectedIndexPath = teaIndexToPass
+            viewDidLoad()
+            teaNameLabel.text = tea.name
+            teaTimeLabel.text = timeString(time: TimeInterval(tea.brewtime))
+            seconds = tea.brewtime
+            
             // update existing tea
-            teas[selectedIndexPath] = tea
+            teas[teaIndexToPass] = tea
             
             // save the tea in list
             do{
                 try NSKeyedArchiver.archivedData(withRootObject: teas, requiringSecureCoding: false).write(to: Tea.ArchiveURL)
-                print("tea was updated")
+                print("tea was updated hi")
             } catch{
                 print("Error saving updated tea")
             }
             
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+            
         }
     }
 }
