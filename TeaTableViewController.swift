@@ -9,6 +9,7 @@ import UIKit
 import os.log
 
 var teas = [Tea]()
+<<<<<<< HEAD
 
 class TeaTableViewController: UITableViewController, UISearchBarDelegate {
 
@@ -22,14 +23,41 @@ class TeaTableViewController: UITableViewController, UISearchBarDelegate {
             navBar.isTranslucent = true
         }
     }
+=======
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
 
+class TeaTableViewController: UITableViewController, UISearchBarDelegate {
+    
+    var teaIndexInTable: Int = 0
+    
+    struct System {
+        static func clearNavigationBar(forBar navBar: UINavigationBar) {
+            navBar.setBackgroundImage(UIImage(), for: .default)
+            navBar.shadowImage = UIImage()
+            navBar.isTranslucent = true
+        }
+    }
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
+<<<<<<< HEAD
 
         tableView.separatorColor = UIColor(white: 0.95 , alpha: 0.1)
 
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
 
+=======
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
+        
+        //setTableViewBackgroundColors(sender: self, UIColor.lightGray, UIColor.white)
+        
+        if let navController = navigationController {
+            System.clearNavigationBar(forBar: navController.navigationBar)
+            navController.view.backgroundColor = .clear
+        }
+        
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
         // use edit button
         navigationItem.leftBarButtonItem = editButtonItem
 
@@ -47,6 +75,7 @@ class TeaTableViewController: UITableViewController, UISearchBarDelegate {
         //load data here
         self.tableView.reloadData()
     }
+<<<<<<< HEAD
 
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -54,6 +83,15 @@ class TeaTableViewController: UITableViewController, UISearchBarDelegate {
     }
 
 
+=======
+    
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
+    }
+  
+    
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -82,14 +120,25 @@ class TeaTableViewController: UITableViewController, UISearchBarDelegate {
         cell.nameLabel.text = tea.name
         cell.nameLabel.addCharacterSpacing()
         cell.timeLabel.text = printTime(seconds: tea.brewtime)
+<<<<<<< HEAD
 
 
         //print("\(tea.name) brew time: \(tea.brewtime)")
+=======
+        cell.secsLabel.text = String(tea.brewtime)
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
 
+        
+        print("\(tea.name) brew time: \(tea.brewtime)")
+        
         return cell
     }
+    
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
@@ -109,30 +158,54 @@ class TeaTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         let rowToMove = teas[fromIndexPath.row]
         teas.remove(at: fromIndexPath.row)
         teas.insert(rowToMove, at: to.row)
+<<<<<<< HEAD
 
         saveTeas()
     }
 
+=======
+        
+        saveTeas()
+    }
+
+    
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+<<<<<<< HEAD
 
         self.navigationController?.setNavigationBarHidden(false, animated: true)
 
         // moving to ViewTea contoller - pass the tea index
+=======
+    
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
         if segue.identifier == "ViewTea" {
             let vc = segue.destination as! TimerViewController
+<<<<<<< HEAD
             vc.teaIndexToPass = Int(tableView.indexPathForSelectedRow!.row)
             print("tea index: \(vc.teaIndexToPass)")
 
+=======
+            //vc.nameValueToPass = cell.nameLabel?.text
+            //vc.timeValueToPass = cell.timeLabel?.text
+            //vc.secsValueToPass = Int((cell.secsLabel?.text)!)!
+            vc.teaIndexToPass = Int(tableView.indexPathForSelectedRow!.row)
+            print("tea index: \(vc.teaIndexToPass)")
+            
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
         }
     }
 
@@ -157,6 +230,7 @@ class TeaTableViewController: UITableViewController, UISearchBarDelegate {
             saveTeas()
         }
     }
+<<<<<<< HEAD
 
 
     // MARK: Private Methods
@@ -182,6 +256,24 @@ class TeaTableViewController: UITableViewController, UISearchBarDelegate {
         teas += [tea1, tea2, tea3, tea4, tea5]
     }
 
+=======
+    
+    
+    // MARK: Private Methods
+    private func loadSampleTeas(){
+        guard let tea1 = Tea(name: "Green Tea", brewtime: 180)
+            else{fatalError("Unable to instantiate tea 1")}
+        
+        guard let tea2 = Tea(name: "Black Tea", brewtime: 240)
+            else{fatalError("Unable to instantiate tea 2")}
+        
+        guard let tea3 = Tea(name: "White Tea", brewtime: 150)
+            else{fatalError("Unable to instantiate tea 3")}
+        
+        teas += [tea1, tea2, tea3]
+    }
+    
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
     private func saveTeas(){
         do{
             try NSKeyedArchiver.archivedData(withRootObject: teas, requiringSecureCoding: false).write(to: Tea.ArchiveURL)
@@ -193,7 +285,28 @@ class TeaTableViewController: UITableViewController, UISearchBarDelegate {
     private func loadTeas() -> [Tea]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Tea.ArchiveURL.path) as? [Tea]
     }
+    
+    func convertTime(seconds: Int) ->(Int, Int, Int){
+        
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
+    func printTime(seconds: Int) ->String!{
+        let (_,m,s) = convertTime(seconds: seconds)
+        
+        if s < 10 && s > 0{
+            return ("\(m) : 0\(s) ")
+        }
+        else if s > 0{
+            return ("\(m) : \(s) ")
+        }
+        else{
+            return ("\(m) : \(s)0 ")
+        }
+        
+    }
 
+<<<<<<< HEAD
     // converts time to hours:minutes:seconds
     func convertTime(seconds: Int) ->(Int, Int, Int){
 
@@ -219,5 +332,15 @@ class TeaTableViewController: UITableViewController, UISearchBarDelegate {
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
         self.navigationController?.setNavigationBarHidden(velocity.y > 0, animated: true)
+=======
+    func returnSecs(seconds: Int) ->Int{
+        let (_,_,s) = convertTime(seconds: seconds)
+        return s
+    }
+
+    func returnMins(seconds: Int) ->Int{
+        let (_,m,_) = convertTime(seconds: seconds)
+        return m
+>>>>>>> 5668bf26eed387a1cf351eaf1568ce74a5a61b98
     }
 }
